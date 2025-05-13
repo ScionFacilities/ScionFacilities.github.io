@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How To Use Asset QR Label Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .company-logo {
+            height: 60px;
+            margin-bottom: 15px;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .step-container {
+            margin-bottom: 40px;
+            border: 1px solid #e3e3e3;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #3498db;
+            margin-top: 0;
+        }
+        .step-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .step-image {
+            max-width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        p {
+            margin: 0;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .back-link:hover {
+            background-color: #2980b9;
+        }
+        @media (min-width: 768px) {
+            .step-content {
+                flex-direction: row;
+                align-items: center;
+            }
+            .step-text {
+                flex: 1;
+            }
+            .step-image-container {
+                flex: 2;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="images/Scion.svg" alt="Scion Logo" class="company-logo">
+        <h1>How To Use Asset QR Label Generator</h1>
+    </div>
+    
+    <div class="step-container">
+        <h2>Step 1: Create or Open an Asset</h2>
+        <div class="step-content">
+            <div class="step-text">
+                <p>From the MaintainX web interface click the Assets section, and find the asset you want to create a label for, or create a New Asset.</p>
+            </div>
+            <div class="step-image-container">
+                <img src="images/instruct-openOrNew.png" alt="Open or New Asset" class="step-image">
+            </div>
+        </div>
+    </div>
+    
+    <div class="step-container">
+        <h2>Step 2: Generate QR Code</h2>
+        <div class="step-content">
+            <div class="step-text">
+                <p>Scroll down to the QR Code/Barcode section in the asset edit form, and click Generate Code.</p>
+            </div>
+            <div class="step-image-container">
+                <img src="images/instruct-genQR.png" alt="Generate QR Code" class="step-image">
+            </div>
+        </div>
+    </div>
+    
+    <div class="step-container">
+        <h2>Step 3: Save Asset</h2>
+        <div class="step-content">
+            <div class="step-text">
+                <p>Scroll to the bottom of the asset edit form and click Create (for a new asset) or Update (for existing assets).</p>
+            </div>
+            <div class="step-image-container">
+                <img src="images/instruct-create.png" alt="Save Asset" class="step-image">
+            </div>
+        </div>
+    </div>
+    
+    <div class="step-container">
+        <h2>Step 4: Re-open Asset</h2>
+        <div class="step-content">
+            <div class="step-text">
+                <p>Click the Edit button for the asset to re-open it.</p>
+            </div>
+            <div class="step-image-container">
+                <img src="images/instruct-edit.png" alt="Re-open Asset" class="step-image">
+            </div>
+        </div>
+    </div>
+    
+    <div class="step-container">
+        <h2>Step 5: Copy URL</h2>
+        <div class="step-content">
+            <div class="step-text">
+                <p>Select the URL text in the QR Code/Barcode field, and paste this into the URL field of the label generator.</p>
+            </div>
+            <div class="step-image-container">
+                <img src="images/instruct-copyURL.png" alt="Copy URL" class="step-image">
+            </div>
+        </div>
+    </div>
+    
+    <a href="index.html" class="back-link">Back to QR Label Generator</a>
+</body>
+</html>

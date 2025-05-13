@@ -1,0 +1,251 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.company-logo {
+    height: 60px;
+    margin-bottom: 15px;
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.form-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"], input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.help-text {
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.help-text a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.help-text a:hover {
+    text-decoration: underline;
+}
+
+button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+button:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+}
+
+.preview-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.label-preview {
+    width: 100%;
+    min-height: 200px;
+    border: 1px dashed #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+/* Label specific styles */
+.qr-label {
+    width: 90mm;
+    height: 38mm;
+    background-color: white;
+    position: relative;
+    display: flex;
+    margin: 0 auto;
+    border: 1px dashed #ccc;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.qr-code-container {
+    width: 32mm;
+    height: 30mm;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 5px;
+    margin: 0 auto;
+    background-color: white;
+    box-shadow: none;
+    aspect-ratio: 1/1;
+    box-sizing: border-box;
+}
+
+.qr-code {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.qr-code img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+.x-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20%;
+    height: auto;
+    z-index: 10;
+}
+
+.text-container {
+    flex: 1;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 38mm;
+    box-sizing: border-box;
+}
+
+.asset-title {
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.asset-name {
+    font-size: 16px;
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    margin-bottom: 5px;
+    font-weight: normal;
+    color: #333;
+    width: 100%;
+    max-width: 100%;
+}
+
+.date-created {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 10px;
+    font-style: italic;
+    width: 100%;
+    max-width: 100%;
+}
+
+.left-container {
+    display: flex;
+    flex-direction: column;
+    width: 34mm;
+    height: 38mm;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0 2mm;
+    padding: 0;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.maintainx-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 34mm;
+    padding: 0;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 5;
+}
+
+.maintainx-logo {
+    width: 25mm;
+    height: auto;
+    margin: 5px;
+    max-height: 7mm;
+}
+
+.scion-logo {
+    width: 40mm;
+    height: auto;
+    margin-top: auto;
+    align-self: flex-start;
+    display: block;
+    position: relative;
+    max-width: 100%;
+}

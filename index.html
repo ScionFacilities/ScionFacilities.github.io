@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset QR Label Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="images/Scion.svg" alt="Scion Logo" class="company-logo">
+            <h1>Asset QR Label Generator</h1>
+        </div>
+        
+        <div class="form-container">
+            <div class="form-group">
+                <label for="url">URL:</label>
+                <input type="text" id="url" placeholder="Enter asset URL" required>
+                <div class="help-text">
+                    <a href="how-to.html" target="_blank">How to get the URL from MaintainX</a>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="assetName">Asset Name:</label>
+                <input type="text" id="assetName" placeholder="Enter asset name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="dateCreated">Date Created:</label>
+                <input type="date" id="dateCreated" required>
+            </div>
+            
+            <button id="generateBtn">Generate Label</button>
+            <button id="printBtn" disabled>Print Label</button>
+        </div>
+        
+        <div class="preview-container">
+            <h2>Label Preview</h2>
+            <div id="labelPreview" class="label-preview">
+                <!-- Label preview will be generated here -->
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
