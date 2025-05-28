@@ -17,10 +17,21 @@
         
         <div class="form-container">
             <div class="form-group">
+                <label for="labelType">Label Type:</label>
+                <select id="labelType">
+                    <option value="maintainx">MaintainX Asset Label</option>
+                    <option value="github">GitHub Repository Label</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
                 <label for="url">URL:</label>
                 <input type="text" id="url" placeholder="Enter asset URL" required>
-                <div class="help-text">
+                <div class="help-text" id="maintainxHelp">
                     <a href="how-to.html" target="_blank">How to get the URL from MaintainX</a>
+                </div>
+                <div class="help-text" id="githubHelp" style="display: none;">
+                    <a href="https://github.com" target="_blank">Enter the GitHub repository URL</a>
                 </div>
             </div>
             

@@ -1,11 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
     // DOM elements
+    const labelTypeSelect = document.getElementById('labelType');
     const urlInput = document.getElementById('url');
     const assetNameInput = document.getElementById('assetName');
     const dateCreatedInput = document.getElementById('dateCreated');
     const generateBtn = document.getElementById('generateBtn');
     const printBtn = document.getElementById('printBtn');
     const labelPreview = document.getElementById('labelPreview');
+    const maintainxHelp = document.getElementById('maintainxHelp');
+    const githubHelp = document.getElementById('githubHelp');
     
     // Set default date to today
     const today = new Date();
@@ -18,15 +21,38 @@ document.addEventListener('DOMContentLoaded', function() {
     const xLogo = new Image();
     xLogo.src = 'images/X.png';
     
+    const gLogo = new Image();
+    gLogo.src = 'images/G.png';
+    
     const maintainxLogo = new Image();
     maintainxLogo.src = 'images/MaintainX.png';
+    
+    const githubLogo = new Image();
+    githubLogo.src = 'images/Github.png';
     
     const scionLogo = new Image();
     scionLogo.src = 'images/Scion.svg';
     
+    // Handle label type change
+    labelTypeSelect.addEventListener('change', function() {
+        const selectedType = labelTypeSelect.value;
+        if (selectedType === 'maintainx') {
+            maintainxHelp.style.display = 'block';
+            githubHelp.style.display = 'none';
+            urlInput.placeholder = 'Enter asset URL';
+            assetNameInput.placeholder = 'Enter asset name';
+        } else {
+            maintainxHelp.style.display = 'none';
+            githubHelp.style.display = 'block';
+            urlInput.placeholder = 'Enter GitHub repository URL';
+            assetNameInput.placeholder = 'Enter repository name';
+        }
+    });
+    
     // Generate label when button is clicked
     generateBtn.addEventListener('click', function() {
         // Validate inputs
+        const labelType = labelTypeSelect.value;
         const url = urlInput.value.trim();
         const assetName = assetNameInput.value.trim();
         const dateCreated = dateCreatedInput.value;
@@ -39,13 +65,14 @@ document.addEventListener('DOMContentLoaded', function() {
         // Disable the print button initially (it will be enabled after generation)
         printBtn.disabled = true;
         
-        generateLabel(url, assetName, dateCreated);
+        generateLabel(url, assetName, dateCreated, labelType);
         printBtn.disabled = false;
     });
     
     // Handle print button
     printBtn.addEventListener('click', function() {
         // Get current form values for reproduction in print window
+        const labelType = labelTypeSelect.value;
         const url = urlInput.value.trim();
         const assetName = assetNameInput.value.trim();
         const dateCreated = dateCreatedInput.value;
@@ -138,7 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     width: 100%;
                     height: 100%;
                 }
-                .x-logo {
+                .x-logo, .center-logo {
                     position: absolute;
                     top: 50%;
                     left: 50%;
@@ -146,6 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     width: 6mm;
                     z-index: 10;
                 }
+                /* Specific styling for each logo type */
                 .maintainx-logo {
                     position: absolute;
                     bottom: 2mm;
@@ -153,6 +181,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     left: 50%;
                     transform: translateX(-50%);
                     margin-top: 0;
+                }
+                
+                .github-logo {
+                    position: absolute;
+                    bottom: 0mm;
+                    width: 23mm;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    margin-top: 1mm;
                 }
                 .asset-title {
                     font-weight: bold;
@@ -181,11 +218,11 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="print-label">
                 <div class="left-side">
                     <div class="qr-container" id="qrContainer"></div>
-                    <img class="maintainx-logo" src="images/MaintainX.png" alt="MaintainX Logo">
+                    <img class="${labelType === 'maintainx' ? 'maintainx-logo' : 'github-logo'}" src="images/${labelType === 'maintainx' ? 'MaintainX.png' : 'Github.png'}" alt="${labelType === 'maintainx' ? 'MaintainX' : 'GitHub'} Logo">
                 </div>
                 <div class="right-side">
                     <div>
-                        <div class="asset-title">MaintainX asset</div>
+                        <div class="asset-title">${labelType === 'maintainx' ? 'MaintainX Asset' : 'GitHub Docs'}</div>
                         <div class="asset-name">${assetName}</div>
                         <div class="date-created">Date Created: ${formatDate(dateCreated)}</div>
                     </div>
@@ -203,59 +240,58 @@ document.addEventListener('DOMContentLoaded', function() {
                     qr.make();
                     
                     const qrContainer = document.getElementById('qrContainer');
-                    const qrImage = document.createElement('div');
-                    qrImage.className = 'qr-code';
-                    qrImage.innerHTML = qr.createImgTag(4, 0);
-                    qrContainer.appendChild(qrImage);
+                    qrContainer.innerHTML = qr.createImgTag(4, 0);
                     
-                    const img = qrImage.querySelector('img');
-                    img.style.width = '100%';
-                    img.style.height = '100%';
-                    
-                    // Create canvas to modify QR code
-                    const canvas = document.createElement('canvas');
-                    const ctx = canvas.getContext('2d');
-                    
-                    img.onload = function() {
-                        const width = img.width;
-                        const height = img.height;
-                        canvas.width = width;
-                        canvas.height = height;
+                    const qrImg = qrContainer.querySelector('img');
+                    if (qrImg) {
+                        // Ensure QR code fills its container
+                        qrImg.style.width = '100%';
+                        qrImg.style.height = '100%';
+                        qrImg.style.display = 'block';
+                        qrImg.style.objectFit = 'fill';
                         
-                        // Draw QR code to canvas
-                        ctx.drawImage(img, 0, 0, width, height);
+                        // Add the logo in the center of the QR code
+                        const logo = document.createElement('img');
+                        logo.src = 'images/${labelType === 'maintainx' ? 'X.png' : 'G.png'}';
+                        logo.className = 'center-logo';
+                        logo.style.width = '6mm';
+                        logo.style.position = 'absolute';
+                        logo.style.top = '50%';
+                        logo.style.left = '50%';
+                        logo.style.transform = 'translate(-50%, -50%)';
+                        logo.style.zIndex = '10';
+                        qrContainer.appendChild(logo);
                         
-                        // Create a white square in the center
-                        const centerSize = Math.min(width, height) * 0.25;
-                        const x = (width - centerSize) / 2;
-                        const y = (height - centerSize) / 2;
+                        // Create canvas to modify QR code
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
                         
-                        ctx.fillStyle = 'white';
-                        ctx.fillRect(x, y, centerSize, centerSize);
-                        
-                        // Replace the QR code image with the modified version
-                        img.src = canvas.toDataURL('image/png');
-                        
-                        // Add X logo
-                        const xLogo = document.createElement('img');
-                        xLogo.className = 'x-logo';
-                        xLogo.src = 'images/X.png';
-                        xLogo.alt = 'X Logo';
-                        qrContainer.appendChild(xLogo);
-                    };
-                }
-                
-                // Add a button to manually print (for testing)
-                // const printButton = document.createElement('button');
-                // printButton.textContent = 'Print';
-                // printButton.style.position = 'fixed';
-                // printButton.style.bottom = '10px';
-                // printButton.style.right = '10px';
-                // printButton.onclick = function() {
-                //     if (!printInitiated) {
-                //         printInitiated = true;
-                //         window.print();
-                //         window.close();
+                        qrImg.onload = function() {
+                            const width = qrImg.width;
+                            const height = qrImg.height;
+                            canvas.width = width;
+                            canvas.height = height;
+                            
+                            // Draw QR code to canvas
+                            ctx.drawImage(qrImg, 0, 0, width, height);
+                            
+                            // Create a white square in the center
+                            const centerSize = Math.min(width, height) * 0.25;
+                            const x = (width - centerSize) / 2;
+                            const y = (height - centerSize) / 2;
+                            
+                            ctx.fillStyle = 'white';
+                            ctx.fillRect(x, y, centerSize, centerSize);
+                            
+                            // Replace the QR code image with the modified version
+                            const newImg = new Image();
+                            newImg.src = canvas.toDataURL('image/png');
+                            newImg.style.width = qrImg.style.width;
+                            newImg.style.height = qrImg.style.height;
+                            qrImg.replaceWith(newImg);
+                        };
+                    }
+                };
                 //     }
                 // };
                 // document.body.appendChild(printButton);
@@ -300,7 +336,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Generate and display the label
-    function generateLabel(url, assetName, dateCreated) {
+    function generateLabel(url, assetName, dateCreated, labelType = 'maintainx') {
         // Clear the preview container
         labelPreview.innerHTML = '';
         
@@ -331,21 +367,21 @@ document.addEventListener('DOMContentLoaded', function() {
         qrImg.innerHTML = qr.createImgTag(4, 0); // 4=size, 0=margin (no white space)
         qrContainer.appendChild(qrImg);
         
-        // Add X logo in the center of QR code
-        const xLogoImg = document.createElement('img');
-        xLogoImg.className = 'x-logo';
-        xLogoImg.src = 'images/X.png';
-        xLogoImg.alt = 'X Logo';
-        qrContainer.appendChild(xLogoImg);
+        // Add logo in the center of QR code
+        const centerLogoImg = document.createElement('img');
+        centerLogoImg.className = 'center-logo';
+        centerLogoImg.src = labelType === 'maintainx' ? 'images/X.png' : 'images/G.png';
+        centerLogoImg.alt = labelType === 'maintainx' ? 'X Logo' : 'G Logo';
+        qrContainer.appendChild(centerLogoImg);
         
         // Create text container
         const textContainer = document.createElement('div');
         textContainer.className = 'text-container';
         
-        // Add "MaintainX asset" text
+        // Add title text
         const assetTitle = document.createElement('div');
         assetTitle.className = 'asset-title';
-        assetTitle.textContent = 'MaintainX Asset';
+        assetTitle.textContent = labelType === 'maintainx' ? 'MaintainX Asset' : 'GitHub Docs';
         textContainer.appendChild(assetTitle);
         
         // Add asset name
@@ -375,12 +411,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const maintainXContainer = document.createElement('div');
         maintainXContainer.className = 'maintainx-container';
         
-        // Add MaintainX logo
-        const maintainxLogoImg = document.createElement('img');
-        maintainxLogoImg.className = 'maintainx-logo';
-        maintainxLogoImg.src = 'images/MaintainX.png';
-        maintainxLogoImg.alt = 'MaintainX Logo';
-        maintainXContainer.appendChild(maintainxLogoImg);
+        // Add bottom logo with appropriate class
+        const bottomLogoImg = document.createElement('img');
+        bottomLogoImg.className = labelType === 'maintainx' ? 'maintainx-logo' : 'github-logo';
+        bottomLogoImg.src = labelType === 'maintainx' ? 'images/MaintainX.png' : 'images/Github.png';
+        bottomLogoImg.alt = labelType === 'maintainx' ? 'MaintainX Logo' : 'GitHub Logo';
+        maintainXContainer.appendChild(bottomLogoImg);
         
         // Add QR code and MaintainX logo to left container
         leftContainer.appendChild(qrContainer);
@@ -410,17 +446,17 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             const qrCodeImg = qrImg.querySelector('img');
             if (qrCodeImg) {
-                // Force square aspect ratio
-                const size = Math.min(qrContainer.offsetWidth, qrContainer.offsetHeight) + 'px';
-                qrCodeImg.style.width = size;
-                qrCodeImg.style.height = size;
-                qrCodeImg.style.objectFit = 'contain';
+                // Force square aspect ratio and fill the container
+                qrCodeImg.style.width = '100%';
+                qrCodeImg.style.height = '100%';
+                qrCodeImg.style.display = 'block';
+                qrCodeImg.style.objectFit = 'fill';
                 qrCodeImg.style.backgroundColor = 'white';
                 qrCodeImg.style.padding = '0';
                 qrCodeImg.style.margin = '0';
                 
-                // Create vacant center for X logo by adding a white square overlay
-                createVacantCenter(qrCodeImg, xLogoImg);
+                // Create vacant center for logo by adding a white square overlay
+                createVacantCenter(qrCodeImg, centerLogoImg);
             }
         }, 10);
         
@@ -442,8 +478,8 @@ document.addEventListener('DOMContentLoaded', function() {
         return `${day}/${month}/${year}`;
     }
     
-    // Function to create a vacant center in the QR code for the X logo
-    function createVacantCenter(qrCodeImg, xLogoImg) {
+    // Function to create a vacant center in the QR code for the center logo
+    function createVacantCenter(qrCodeImg, centerLogoImg) {
         // Create canvas to modify QR code
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
@@ -483,8 +519,8 @@ document.addEventListener('DOMContentLoaded', function() {
             
             qrCodeImg.replaceWith(newImg);
             
-            // Position X logo in center
-            xLogoImg.style.width = (centerSize * 0.9) + 'px';
+            // Position center logo
+            centerLogoImg.style.width = (centerSize * 0.9) + 'px';
         }
     }
 });

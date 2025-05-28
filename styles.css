@@ -53,13 +53,19 @@ label {
     font-weight: bold;
 }
 
-input[type="text"], input[type="date"] {
+input[type="text"], input[type="date"], select {
     width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 16px;
     box-sizing: border-box;
+}
+
+select {
+    background-color: white;
+    cursor: pointer;
+    appearance: auto;
 }
 
 .help-text {
@@ -160,7 +166,7 @@ button:disabled {
     display: block;
 }
 
-.x-logo {
+.x-logo, .center-logo {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -234,6 +240,13 @@ button:disabled {
 }
 
 .maintainx-logo {
+    width: 25mm;
+    height: auto;
+    margin: 5px;
+    max-height: 7mm;
+}
+
+.github-logo {
     width: 25mm;
     height: auto;
     margin: 5px;
