@@ -253,8 +253,7 @@ button:disabled {
     max-height: 7mm;
 }
 
-.scion-logo {
-    width: 40mm;
+.bsi-logo {
     height: auto;
     margin-top: auto;
     align-self: flex-start;

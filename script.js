@@ -30,8 +30,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const githubLogo = new Image();
     githubLogo.src = 'images/Github.png';
     
-    const scionLogo = new Image();
-    scionLogo.src = 'images/Scion.svg';
+    const bsiLogo = new Image();
+    bsiLogo.src = 'images/BSILogo.svg';
     
     // Handle label type change
     labelTypeSelect.addEventListener('change', function() {
@@ -207,8 +207,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     font-weight: bold;
                     margin-bottom: 4mm;
                 }
-                .scion-logo {
-                    width: 40mm;
+                .bsi-logo {
+                    width: 33mm;
                     align-self: flex-start;
                     margin-top: auto;
                 }
@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <div class="asset-name">${assetName}</div>
                         <div class="date-created">Date Created: ${formatDate(dateCreated)}</div>
                     </div>
-                    <img class="scion-logo" src="images/Scion.svg" alt="Scion Logo">
+                    <img class="bsi-logo" src="images/BSILogo.svg" alt="BSI Logo">
                 </div>
             </div>
             
@@ -422,25 +422,25 @@ document.addEventListener('DOMContentLoaded', function() {
         leftContainer.appendChild(qrContainer);
         leftContainer.appendChild(maintainXContainer);
         
-        // Create Scion logo container
-        const scionLogoImg = document.createElement('img');
-        scionLogoImg.className = 'scion-logo';
-        scionLogoImg.src = 'images/Scion.svg';
-        scionLogoImg.alt = 'Scion Logo';
-        scionLogoImg.style.width = '40mm'; // Double the size
+        // Create BSI logo container
+        const bsiLogoImg = document.createElement('img');
+        bsiLogoImg.className = 'bsi-logo';
+        bsiLogoImg.src = 'images/BSILogo.svg';
+        bsiLogoImg.alt = 'BSI Logo';
+        bsiLogoImg.style.width = '33mm';
         
-        // Create a container for the Scion logo to ensure consistent positioning
-        const scionContainer = document.createElement('div');
-        scionContainer.style.width = '100%';
-        scionContainer.style.display = 'flex';
-        scionContainer.style.justifyContent = 'flex-start';
-        scionContainer.style.marginTop = 'auto';
-        scionContainer.appendChild(scionLogoImg);
+        // Create a container for the BSI logo to ensure consistent positioning
+        const bsiContainer = document.createElement('div');
+        bsiContainer.style.width = '100%';
+        bsiContainer.style.display = 'flex';
+        bsiContainer.style.justifyContent = 'flex-start';
+        bsiContainer.style.marginTop = 'auto';
+        bsiContainer.appendChild(bsiLogoImg);
         
         // Assemble the label
         labelContainer.appendChild(leftContainer);
         labelContainer.appendChild(textContainer);
-        textContainer.appendChild(scionContainer);
+        textContainer.appendChild(bsiContainer);
         
         // Make sure QR code image is properly sized and positioned
         setTimeout(() => {
