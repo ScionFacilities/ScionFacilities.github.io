@@ -300,7 +300,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 window.onload = function() {
                     generateQRWithLogo();
                     
-                    // Give time for images to load fully before printing
+                    // Detect text wrapping and adjust sizes if needed
+                    (function() {
+                        var nameEl = document.querySelector('.asset-name');
+                        var titleEl = document.querySelector('.asset-title');
+                        var dateEl = document.querySelector('.date-created');
+                        var bsiEl = document.querySelector('.bsi-logo');
+                        if (nameEl) {
+                            var lineHeight = parseFloat(window.getComputedStyle(nameEl).lineHeight) || (parseFloat(window.getComputedStyle(nameEl).fontSize) * 1.2);
+                            if (nameEl.offsetHeight > lineHeight * 1.5) {
+                                nameEl.style.fontSize = '12px';
+                                if (titleEl) titleEl.style.fontSize = '11px';
+                                if (dateEl) dateEl.style.fontSize = '10px';
+                                if (bsiEl) bsiEl.style.width = '25mm';
+                            }
+                        }
+                    })();
+                    
+                // Give time for images to load fully before printing
                     setTimeout(function() {
                         if (!printInitiated) {
                             printInitiated = true;
@@ -462,6 +479,25 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Add the label to the preview
         labelPreview.appendChild(labelContainer);
+        
+        // Detect text wrapping and adjust sizes if needed
+        setTimeout(() => {
+            adjustForTextWrap(assetNameDiv, textContainer, bsiLogoImg);
+        }, 50);
+    }
+    
+    // Detect if asset name has wrapped to a second line and reduce sizes to fit
+    function adjustForTextWrap(assetNameDiv, textContainer, bsiLogoImg) {
+        const lineHeight = parseFloat(window.getComputedStyle(assetNameDiv).lineHeight) || (parseFloat(window.getComputedStyle(assetNameDiv).fontSize) * 1.2);
+        if (assetNameDiv.offsetHeight > lineHeight * 1.5) {
+            // Text has wrapped — reduce font sizes and BSI logo
+            assetNameDiv.style.fontSize = '12px';
+            const titleEl = textContainer.querySelector('.asset-title');
+            if (titleEl) titleEl.style.fontSize = '11px';
+            const dateEl = textContainer.querySelector('.date-created');
+            if (dateEl) dateEl.style.fontSize = '10px';
+            bsiLogoImg.style.width = '25mm';
+        }
     }
     
     // Function to format date from YYYY-MM-DD to DD/MM/YYYY
