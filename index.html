@@ -16,6 +16,7 @@
         </div>
         
         <div class="form-container">
+            <!-- Label Type (shared) -->
             <div class="form-group">
                 <label for="labelType">Label Type:</label>
                 <select id="labelType">
@@ -23,36 +24,88 @@
                     <option value="github">GitHub Repository Label</option>
                 </select>
             </div>
-            
-            <div class="form-group">
-                <label for="url">URL:</label>
-                <input type="text" id="url" placeholder="Enter asset URL" required>
-                <div class="help-text" id="maintainxHelp">
-                    <a href="how-to.html" target="_blank">How to get the URL from MaintainX</a>
+
+            <!-- Mode tabs -->
+            <div class="mode-tabs">
+                <button class="tab-btn active" id="tabSingle" type="button">Single Label</button>
+                <button class="tab-btn" id="tabBulk" type="button">Bulk / CSV</button>
+            </div>
+
+            <!-- Single label fields -->
+            <div id="singleMode">
+                <div class="form-group">
+                    <label for="url">URL:</label>
+                    <input type="text" id="url" placeholder="Enter asset URL" required>
+                    <div class="help-text" id="maintainxHelp">
+                        <a href="how-to.html" target="_blank">How to get the URL from MaintainX</a>
+                    </div>
+                    <div class="help-text" id="githubHelp" style="display: none;">
+                        <a href="https://github.com" target="_blank">Enter the GitHub repository URL</a>
+                    </div>
                 </div>
-                <div class="help-text" id="githubHelp" style="display: none;">
-                    <a href="https://github.com" target="_blank">Enter the GitHub repository URL</a>
+                <div class="form-group">
+                    <label for="assetName">Asset Name:</label>
+                    <input type="text" id="assetName" placeholder="Enter asset name" required>
                 </div>
+                <div class="form-group">
+                    <label for="dateCreated">Date Created:</label>
+                    <input type="date" id="dateCreated" required>
+                </div>
+                <button id="generateBtn">Generate Label</button>
+                <button id="printBtn" disabled>Print Label</button>
             </div>
-            
-            <div class="form-group">
-                <label for="assetName">Asset Name:</label>
-                <input type="text" id="assetName" placeholder="Enter asset name" required>
+
+            <!-- Bulk / CSV fields -->
+            <div id="bulkMode" style="display:none;">
+                <div class="form-group">
+                    <label>Upload CSV File:</label>
+                    <div class="csv-drop-zone" id="csvDropZone">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#3498db" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                        <p class="csv-drop-text">Drag &amp; drop your CSV here, or</p>
+                        <button type="button" class="csv-browse-btn" id="csvBrowseBtn">Choose File</button>
+                        <p class="csv-file-name" id="csvFileName">No file selected</p>
+                        <input type="file" id="csvFile" accept=".csv" style="display:none;">
+                    </div>
+                    <div class="help-text">Export your asset list as CSV from MaintainX or your spreadsheet and upload it here.</div>
+                </div>
+                <div id="csvMapping" style="display:none;">
+                    <div class="form-group">
+                        <label for="colName">Asset Name column:</label>
+                        <select id="colName"></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="colUrl">Asset URL column:</label>
+                        <select id="colUrl"></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="bulkDate">Date Created:</label>
+                        <input type="date" id="bulkDate" required>
+                    </div>
+                </div>
+                <button id="bulkGenerateBtn" disabled>Generate Labels</button>
+                <button id="bulkPrintBtn" disabled>Print Selected</button>
             </div>
-            
-            <div class="form-group">
-                <label for="dateCreated">Date Created:</label>
-                <input type="date" id="dateCreated" required>
-            </div>
-            
-            <button id="generateBtn">Generate Label</button>
-            <button id="printBtn" disabled>Print Label</button>
         </div>
-        
-        <div class="preview-container">
+
+        <!-- Single label preview -->
+        <div class="preview-container" id="singlePreviewContainer">
             <h2>Label Preview</h2>
             <div id="labelPreview" class="label-preview">
                 <!-- Label preview will be generated here -->
+            </div>
+        </div>
+
+        <!-- Bulk label list -->
+        <div class="preview-container" id="bulkPreviewContainer" style="display:none;">
+            <div class="bulk-preview-header">
+                <h2>Generated Labels <span id="bulkCount"></span></h2>
+                <div class="bulk-selection-btns">
+                    <button type="button" id="selectAllBtn">Select All</button>
+                    <button type="button" id="selectNoneBtn">Select None</button>
+                </div>
+            </div>
+            <div id="bulkLabelList" class="bulk-label-list">
+                <!-- Bulk labels will be listed here -->
             </div>
         </div>
     </div>
